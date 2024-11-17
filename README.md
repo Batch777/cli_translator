@@ -1,6 +1,6 @@
 # cli_translator
 a poor translator based on yi_lightning
-
+修改.py文件内的YOUR_API_TOKEN为自己的token
 克隆仓库
 
 git clone https://github.com/Batch777/cli_translator.git
