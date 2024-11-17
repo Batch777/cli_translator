@@ -1,5 +1,6 @@
 # cli_translator
-a poor translator based on yi_lightning
+一个基于零一万物的简陋翻译器
+
 修改.py文件内的YOUR_API_TOKEN为自己的token
 克隆仓库
 ```bash
