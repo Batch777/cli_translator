@@ -3,34 +3,34 @@
 # 定义 Python 脚本路径
 PYTHON_SCRIPT="./yi_translator.py"
 
+empty_lines=0
 input_lines=()
-# 无限循环
-echo "输入t翻译，q退出"
-while true; do
-  # 提示用户输入
-  read user_input
 
-  if [ "$user_input" == "q" ]; then
-    echo "退出程序。"
-    break
-    # 如果用户输入 't'，执行脚本
-  elif [ "$user_input" == "t" ]; then
-    # 检查是否有输入内容
-    if [ ${#input_lines[@]} -eq 0 ]; then
-      echo "没有输入内容。"
-    else
-      # 将数组内容传递给 Python 脚本
+echo "请输入内容，连续两个空行将执行翻译"
+
+# 循环读取输入
+while true; do
+  read input
+  # 如果输入为空，增加空行计数器
+  if [ -z "$input" ]; then
+    ((empty_lines++))
+    if [ $empty_lines -ge 2 ]; then
       echo "正在翻译..."
-      python3 "$PYTHON_SCRIPT" "${input_lines[@]}"
-      echo ""
-      echo "翻译完毕。"
-      # 清空数组以准备接收新的输入
-      input_lines=()
+      # 当收集到输入后，调用Python脚本并将数组作为参数传递
+      if [ ${#inputs[@]} -gt 0 ]; then
+        # 调用Python脚本并传递数组内容作为参数
+        python3 $PYTHON_SCRIPT "${inputs[@]}"
+        inputs=()
+        empty_lines=0
+        echo ""
+      else
+        echo "没有输入内容传递给Python脚本。"
+      fi
     fi
   else
-    # 如果输入不是 't' 或 'exit'，将其添加到数组中
-    input_lines+=("$user_input")
-    # echo "已添加到输入列表。"
+    # 重置空行计数器
+    empty_lines=0
+    # 将非空输入添加到数组
+    inputs+=("$input")
   fi
-  # 如果用户输入 'exit'，退出循环
 done
