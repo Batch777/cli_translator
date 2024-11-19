@@ -13,12 +13,10 @@ echo "一个空输入将执行翻译"
 # 循环读取输入
 while true; do
   read input
-  # 如果输入为空，增加空行计数器
+  # 如果输入为空，执行翻译
   if [ -z "$input" ]; then
     echo "正在翻译..."
-    # 当收集到输入后，调用Python脚本并将数组作为参数传递
     if [ ${#inputs[@]} -gt 0 ]; then
-      # 调用Python脚本并传递数组内容作为参数
       python3 $PYTHON_SCRIPT "${inputs[@]}"
       inputs=()
       empty_lines=0
@@ -27,7 +25,6 @@ while true; do
       echo "没有输入内容传递给Python脚本。"
     fi
   else
-    # 重置空行计数器
     inputs+=("$input")
   fi
 done
